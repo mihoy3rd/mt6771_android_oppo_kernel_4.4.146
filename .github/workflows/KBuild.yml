@@ -84,6 +84,9 @@ jobs:
         export TARGET_PRODUCT=full_oppo6771_${{ github.event.inputs.device }}
         export OPPO_TARGET_DEVICE=oppo6771_${{ github.event.inputs.device }}
         export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$GITHUB_WORKSPACE/kernel_workspace/gcc64/bin:$GITHUB_WORKSPACE/kernel_workspace/gcc32/bin:$PATH
+        echo -e "\n# CONFIG_MODULE_SIG_ALL is not set" >> arch/arm64/configs/oppo6771_${{ github.event.inputs.device }}_defconfig
+        echo -e "\n# CONFIG_MODULE_SIG is not set" >> arch/arm64/configs/oppo6771_${{ github.event.inputs.device }}_defconfig
+        echo -e "\n# CONFIG_MODULE_SIG_FORCE is not set" >> arch/arm64/configs/oppo6771_${{ github.event.inputs.device }}_defconfig        
         make -s -j$(nproc --all) O=out ARCH=arm64 oppo6771_${{ github.event.inputs.device }}_defconfig
         make -j$(nproc --all) CC="ccache clang" O=out ARCH=arm64 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- CROSS_COMPILE_ARM32=arm-linux-androideabi-
                 
